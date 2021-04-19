@@ -231,7 +231,10 @@ def update_attributes(cloudnet_variables: dict, attributes: dict) -> None:
 def _write_vars2nc(nc: netCDF4.Dataset, cloudnet_variables: dict) -> None:
     """Iterates over Cloudnet instances and write to netCDF file."""
     for obj in cloudnet_variables.values():
-        size = _get_dimensions(nc, obj.data)
+        if hasattr(obj, 'dimensions') and obj.dimensions is not None:
+            size = obj.dimensions
+        else:
+            size = _get_dimensions(nc, obj.data)
         nc_variable = nc.createVariable(obj.name, obj.data_type, size, zlib=True)
         nc_variable[:] = obj.data
         for attr in obj.fetch_attributes():
