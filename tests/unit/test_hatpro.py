@@ -23,7 +23,7 @@ class TestHatpro2nc:
     def test_processing_of_several_files(self):
         test_uuid = 'abc'
         uuid, files = hatpro.hatpro2nc(self.file_path, self.temp_file.name, self.site_meta,
-                                    date='2021-01-23', uuid=test_uuid)
+                                       date='2021-01-23', uuid=test_uuid)
         assert len(files) == 2
         assert uuid == test_uuid
 
